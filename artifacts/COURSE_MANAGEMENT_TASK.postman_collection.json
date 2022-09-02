@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "ea452a0a-c4c3-461f-b2aa-8f36f5e5a80b",
+		"name": "COURSE_MANAGEMENT_TASK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12433958"
+	},
+	"item": [
+		{
+			"name": "SIGN UP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"schbangq3\",\r\n    \"password\": \"Laptop@123\",\r\n    \"emailId\": \"schbangq3@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGN IN",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let access_token = pm.response.json().data.token\r",
+							"pm.environment.set(\"authToken\", access_token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\": \"schbangq3@gmail.com\",\r\n    \"password\": \"Laptop@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/signIn",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VALIDATE TOKEN TEST",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/users/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COURSE ADD",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"TEST100\",\r\n    \"description\":\"TEST200\",\r\n    \"videoUrl\":\"http://localhost:9009/video1\",\r\n    \"courseDuration\":\"1000\",\r\n    \"category\":\"Education\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/courses/addCourse?roleId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"addCourse"
+					],
+					"query": [
+						{
+							"key": "roleId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COURSE UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"TEST1\",\r\n    \"description\":\"TEST\",\r\n    \"videoUrl\":\"http://localhost:9000/video1\",\r\n    \"courseDuration\":\"1000\",\r\n    \"category\":\"Education\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/courses/updateCourse?roleId=1&courseId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"updateCourse"
+					],
+					"query": [
+						{
+							"key": "roleId",
+							"value": "1"
+						},
+						{
+							"key": "courseId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COURSE DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/courses/deleteCourse?roleId=1&courseId=2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"deleteCourse"
+					],
+					"query": [
+						{
+							"key": "roleId",
+							"value": "1"
+						},
+						{
+							"key": "courseId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COURSE APPROVE",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"approved\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/courses/approve?roleId=2&courseId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"approve"
+					],
+					"query": [
+						{
+							"key": "roleId",
+							"value": "2"
+						},
+						{
+							"key": "courseId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET COURSES",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/courses/getCourses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"courses",
+						"getCourses"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
